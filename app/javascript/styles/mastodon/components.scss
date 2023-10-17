@@ -1752,7 +1752,7 @@ a.account__display-name {
   gap: 10px;
 
   .fa {
-    color: $highlight-text-color;
+    color: $classic-secondary-color;
   }
 
   > span {
@@ -1769,7 +1769,7 @@ a.account__display-name {
 }
 
 .icon-button.star-icon.active {
-  color: $gold-star;
+  color: $warning-red;
 }
 
 .icon-button.bookmark-icon.active {
