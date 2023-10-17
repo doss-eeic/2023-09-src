@@ -1289,19 +1289,23 @@ body > [data-popper-placement] {
   }
 }
 
-.status__action-bar {
+.inside__status__action-bar {
   display: flex;
+  gap: 18px;
   justify-content: space-between;
   align-items: center;
-  gap: 18px;
+}
+
+.status__action-bar {
+  display: flex;
   margin-top: 16px;
+  flex-direction: column;
 }
 
 .detailed-status__action-bar-dropdown {
   flex: 1 1 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
   position: relative;
 }
 
