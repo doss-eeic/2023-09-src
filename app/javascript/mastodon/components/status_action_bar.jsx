@@ -367,9 +367,9 @@ class StatusActionBar extends ImmutablePureComponent {
           <IconButton className={classNames('status__action-bar__button', { reblogPrivate })} disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon='retweet' onClick={this.handleReblogClick} counter={withCounters ? status.get('reblogs_count') : undefined} />
           <IconButton className='status__action-bar__button star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
           <IconButton className='status__action-bar__button bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} />
-          {filterButton}
         </div>
-        <div className='inside__status__action-bar'>
+        <div className='inside__status__action-bar__hidden'>
+          <IconButton className='status__action-bar__button star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
           <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='heart' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
           <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='thumbs-up' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
           <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='face-smile' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
@@ -378,7 +378,7 @@ class StatusActionBar extends ImmutablePureComponent {
           <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='face-grin-squint-tears' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
         </div>
 
-
+        {filterButton}
         <div className='status__action-bar__dropdown'>
           <DropdownMenuContainer
             scrollKey={scrollKey}
