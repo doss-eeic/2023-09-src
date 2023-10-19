@@ -15,6 +15,11 @@ export const FAVOURITE_REQUEST = 'FAVOURITE_REQUEST';
 export const FAVOURITE_SUCCESS = 'FAVOURITE_SUCCESS';
 export const FAVOURITE_FAIL    = 'FAVOURITE_FAIL';
 
+
+export const THUMBSUP_REQUEST = 'THUMBSUP_REQUEST';
+export const THUMBSUP_SUCCESS = 'THUMBSUP_SUCCESS';
+export const THUMBSUP_FAIL    = 'THUMBSUP_FAIL';
+
 export const UNREBLOG_REQUEST = 'UNREBLOG_REQUEST';
 export const UNREBLOG_SUCCESS = 'UNREBLOG_SUCCESS';
 export const UNREBLOG_FAIL    = 'UNREBLOG_FAIL';
@@ -22,6 +27,10 @@ export const UNREBLOG_FAIL    = 'UNREBLOG_FAIL';
 export const UNFAVOURITE_REQUEST = 'UNFAVOURITE_REQUEST';
 export const UNFAVOURITE_SUCCESS = 'UNFAVOURITE_SUCCESS';
 export const UNFAVOURITE_FAIL    = 'UNFAVOURITE_FAIL';
+
+export const UNTHUMBSUP_REQUEST = 'UNTHUMBSUP_REQUEST';
+export const UNTHUMBSUP_SUCCESS = 'UNTHUMBSUP_SUCCESS';
+export const UNTHUMBSUP_FAIL    = 'UNTHUMBSUP_FAIL';
 
 export const REBLOGS_FETCH_REQUEST = 'REBLOGS_FETCH_REQUEST';
 export const REBLOGS_FETCH_SUCCESS = 'REBLOGS_FETCH_SUCCESS';
@@ -142,6 +151,19 @@ export function favourite(status) {
   };
 }
 
+export function thumbsup(status) {
+  return function (dispatch, getState) {
+    dispatch(thumbsupRequest(status));
+
+    api(getState).post(`/api/v1/statuses/${status.get('id')}/thumbsup`).then(function (response) {
+      dispatch(importFetchedStatus(response.data));
+      dispatch(thumbsupSuccess(status));
+    }).catch(function (error) {
+      dispatch(thumbsupFail(status, error));
+    });
+  };
+}
+
 export function unfavourite(status) {
   return (dispatch, getState) => {
     dispatch(unfavouriteRequest(status));
@@ -155,6 +177,19 @@ export function unfavourite(status) {
   };
 }
 
+export function unthumbsup(status) {
+  return (dispatch, getState) => {
+    dispatch(unthumbsupRequest(status));
+
+    api(getState).post(`/api/v1/statuses/${status.get('id')}/unthumbsup`).then(response => {
+      dispatch(importFetchedStatus(response.data));
+      dispatch(unthumbsupSuccess(status));
+    }).catch(error => {
+      dispatch(unthumbsupFail(status, error));
+    });
+  };
+}
+
 export function favouriteRequest(status) {
   return {
     type: FAVOURITE_REQUEST,
@@ -163,6 +198,7 @@ export function favouriteRequest(status) {
   };
 }
 
+
 export function favouriteSuccess(status) {
   return {
     type: FAVOURITE_SUCCESS,
@@ -170,6 +206,8 @@ export function favouriteSuccess(status) {
     skipLoading: true,
   };
 }
+
+
 
 export function favouriteFail(status, error) {
   return {
@@ -199,6 +237,56 @@ export function unfavouriteSuccess(status) {
 export function unfavouriteFail(status, error) {
   return {
     type: UNFAVOURITE_FAIL,
+    status: status,
+    error: error,
+    skipLoading: true,
+  };
+}
+
+export function thumbsupRequest(status) {
+  return {
+    type: THUMBSUP_REQUEST,
+    status: status,
+    skipLoading: true,
+  };
+}
+
+export function thumbsupSuccess(status) {
+  return {
+    type: THUMBSUP_SUCCESS,
+    status: status,
+    skipLoading: true,
+  };
+}
+
+export function thumbsupFail(status, error) {
+  return {
+    type: THUMBSUP_FAIL,
+    status: status,
+    error: error,
+    skipLoading: true,
+  };
+}
+
+export function unthumbsupRequest(status) {
+  return {
+    type: UNTHUMBSUP_REQUEST,
+    status: status,
+    skipLoading: true,
+  };
+}
+
+export function unthumbsupSuccess(status) {
+  return {
+    type: UNTHUMBSUP_SUCCESS,
+    status: status,
+    skipLoading: true,
+  };
+}
+
+export function unthumbsupFail(status, error) {
+  return {
+    type: UNTHUMBSUP_FAIL,
     status: status,
     error: error,
     skipLoading: true,

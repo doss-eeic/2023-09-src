@@ -7,6 +7,8 @@ import {
   favourite,
   unreblog,
   unfavourite,
+  thumbsup,
+  unthumbsup,
 } from '../../../actions/interactions';
 import {
   hideStatus,
@@ -59,6 +61,14 @@ const mapDispatchToProps = dispatch => ({
       dispatch(unfavourite(status));
     } else {
       dispatch(favourite(status));
+    }
+  },
+
+  onThumbsup (status) {
+    if (status.get('thumbs-up')) {
+      dispatch(unthumbsup(status));
+    } else {
+      dispatch(thumbsup(status));
     }
   },
 

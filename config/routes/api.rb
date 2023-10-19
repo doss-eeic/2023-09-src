@@ -10,8 +10,12 @@ namespace :api, format: false do
       scope module: :statuses do
         resources :reblogged_by, controller: :reblogged_by_accounts, only: :index
         resources :favourited_by, controller: :favourited_by_accounts, only: :index
+        resources :thumbsup_by, controller: :thumbsup_by_accounts, only: :index
         resource :reblog, only: :create
         post :unreblog, to: 'reblogs#destroy'
+
+        resource :thumbsup, only: :create
+        post :unthumbsup, to: 'thumbsup#destroy'
 
         resource :favourite, only: :create
         post :unfavourite, to: 'favourites#destroy'
@@ -89,6 +93,7 @@ namespace :api, format: false do
     resources :blocks, only: [:index]
     resources :mutes, only: [:index]
     resources :favourites, only: [:index]
+    resources :thumbsups, only: [:index]
     resources :bookmarks, only: [:index]
     resources :reports, only: [:create]
     resources :trends, only: [:index], controller: 'trends/tags'

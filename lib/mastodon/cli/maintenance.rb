@@ -16,6 +16,7 @@ module Mastodon::CLI
     class Report < ApplicationRecord; end
     class Tombstone < ApplicationRecord; end
     class Favourite < ApplicationRecord; end
+    class Thunbsup < ApplicationRecord; end
     class Follow < ApplicationRecord; end
     class FollowRequest < ApplicationRecord; end
     class Block < ApplicationRecord; end
@@ -78,7 +79,7 @@ module Mastodon::CLI
         # to check for (and skip past) uniqueness errors
 
         owned_classes = [
-          Status, StatusPin, MediaAttachment, Poll, Report, Tombstone, Favourite,
+          Status, StatusPin, MediaAttachment, Poll, Report, Tombstone, Favourite, Thumbsup,
           Follow, FollowRequest, Block, Mute,
           AccountModerationNote, AccountPin, AccountStat, ListAccount,
           PollVote, Mention
