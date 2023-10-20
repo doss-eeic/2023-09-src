@@ -12,7 +12,7 @@ class RemoveFauxRemoteAccountDuplicates < ActiveRecord::Migration[5.2]
     # Dummy class, to make migration possible across version changes
     belongs_to :account, inverse_of: :statuses
     has_many :favourites, inverse_of: :status, dependent: :destroy
-    has_many :thumbsups, inverse_of: :status, dependent: :destroy
+    # has_many :thumbsups, inverse_of: :status, dependent: :destroy
     has_many :mentions, dependent: :destroy, inverse_of: :status
   end
 
@@ -22,11 +22,11 @@ class RemoveFauxRemoteAccountDuplicates < ActiveRecord::Migration[5.2]
     belongs_to :status,  inverse_of: :favourites
   end
 
-  class Thumbsup < ApplicationRecord
-    # Dummy class, to make migration possible across version changes
-    belongs_to :account, inverse_of: :thumbsups
-    belongs_to :status,  inverse_of: :thumbsups
-  end
+  # class Thumbsup < ApplicationRecord
+  # Dummy class, to make migration possible across version changes
+  # belongs_to :account, inverse_of: :thumbsups
+  # belongs_to :status,  inverse_of: :s
+  # end
 
   class Mention < ApplicationRecord
     # Dummy class, to make migration possible across version changes
@@ -46,7 +46,7 @@ class RemoveFauxRemoteAccountDuplicates < ActiveRecord::Migration[5.2]
     has_many :stream_entries, inverse_of: :account, dependent: :destroy
     has_many :statuses, inverse_of: :account, dependent: :destroy
     has_many :favourites, inverse_of: :account, dependent: :destroy
-    has_many :thumbsups, inverse_of: :account, dependent: :destroy
+    # has_many :thumbsups, inverse_of: :account, dependent: :destroy
     has_many :mentions, inverse_of: :account, dependent: :destroy
     has_many :notifications, inverse_of: :account, dependent: :destroy
   end

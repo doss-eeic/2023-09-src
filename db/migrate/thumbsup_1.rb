@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Thumbsup1 < ActiveRecord::Migration[7.1]
+class Thumbsup1 < ActiveRecord::Migration[7.0]
   def change
     create_table :thumbsups do |t|
       t.bigint :account_id, null: false

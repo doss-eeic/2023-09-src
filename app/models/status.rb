@@ -78,7 +78,7 @@ class Status < ApplicationRecord
   has_many :local_favourited, -> { merge(Account.local) }, through: :s, source: :account
   has_many :local_reblogged, -> { merge(Account.local) }, through: :reblogs, source: :account
   has_many :local_bookmarked, -> { merge(Account.local) }, through: :bookmarks, source: :account
-  has_many :local_thumbsup, -> { merge(Account.local) }, through: :thumbsups, source: :account
+  # has_many :local_thumbsup, -> { merge(Account.local) }, through: :thumbsups, source: :account
 
   has_and_belongs_to_many :tags
   has_and_belongs_to_many :preview_cards

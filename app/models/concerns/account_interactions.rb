@@ -244,7 +244,7 @@ module AccountInteractions
   end
 
   def thumbsup?(status)
-    status.proper.thumbsup.where(account: self).exists?
+    status.proper..where(account: self).exists?
   end
 
   def bookmarked?(status)

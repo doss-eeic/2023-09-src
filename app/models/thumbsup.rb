@@ -43,9 +43,9 @@ class Thumbsup < ApplicationRecord
     status&.decrement_count!(:thumbsup_count)
   end
 
-  def invalidate_cleanup_info
-    return unless status&.account_id == account_id && account.local?
+  # def invalidate_cleanup_info
+  # return unless status&.account_id == account_id && account.local?
 
-    account.statuses_cleanup_policy&.invalidate_last_inspected(status, :unfav)
-  end
+  # account.statuses_cleanup_policy&.invalidate_last_inspected(status, :unfav)
+  # end
 end

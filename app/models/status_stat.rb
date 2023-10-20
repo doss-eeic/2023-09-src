@@ -28,7 +28,7 @@ class StatusStat < ApplicationRecord
     [attributes['favourites_count'], 0].max
   end
 
-  def thumbsups_count
-    [attributes['thumbsups_count'], 0].max
-  end
+  # def thumbsups_count
+  # [attributes['thumbsups_count'], 0].max
+  # end
 end
