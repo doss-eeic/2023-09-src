@@ -243,6 +243,10 @@ module AccountInteractions
     status.proper.favourites.where(account: self).exists?
   end
 
+  def thumbsuped?(status)
+    status.proper.thumbsups.where(account: self).exists?
+  end
+
   def bookmarked?(status)
     status.proper.bookmarks.where(account: self).exists?
   end

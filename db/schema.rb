@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_07_150100) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_23_070913) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -1028,6 +1028,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_150100) do
     t.datetime "max_score_at", precision: nil
     t.string "display_name"
     t.index "lower((name)::text) text_pattern_ops", name: "index_tags_on_name_lower_btree", unique: true
+  end
+
+  create_table "thumbsups", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "status_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status_id", "account_id"], name: "index_thumbsups_on_status_id_and_account_id", unique: true
   end
 
   create_table "tombstones", force: :cascade do |t|

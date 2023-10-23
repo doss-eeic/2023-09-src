@@ -36,7 +36,7 @@ class RemoveStatusService < BaseService
       remove_from_remote_reach if @account.local? && !@options[:original_removed]
 
       # Since reblogs don't mention anyone, don't get reblogged,
-      # favourited and don't contain their own media attachments
+      #  and don't contain their own media attachments
       # or hashtags, this can be skipped
       unless @status.reblog?
         remove_from_mentions

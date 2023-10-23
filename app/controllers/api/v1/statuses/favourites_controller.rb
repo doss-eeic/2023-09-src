@@ -8,6 +8,7 @@ class Api::V1::Statuses::FavouritesController < Api::BaseController
   before_action :set_status, only: [:create]
 
   def create
+    set_status
     FavouriteService.new.call(current_account, @status)
     render json: @status, serializer: REST::StatusSerializer
   end
