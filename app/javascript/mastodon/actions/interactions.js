@@ -11,6 +11,10 @@ export const REBLOGS_EXPAND_REQUEST = 'REBLOGS_EXPAND_REQUEST';
 export const REBLOGS_EXPAND_SUCCESS = 'REBLOGS_EXPAND_SUCCESS';
 export const REBLOGS_EXPAND_FAIL = 'REBLOGS_EXPAND_FAIL';
 
+export const LIKE_REQUEST = 'LIKE_REQUEST';
+export const LIKE_SUCCESS = 'LIKE_SUCCESS';
+export const LIKE_FAIL    = 'LIKE_FAIL';
+
 export const FAVOURITE_REQUEST = 'FAVOURITE_REQUEST';
 export const FAVOURITE_SUCCESS = 'FAVOURITE_SUCCESS';
 export const FAVOURITE_FAIL    = 'FAVOURITE_FAIL';
@@ -221,6 +225,7 @@ export function unfavouriteRequest(status) {
     skipLoading: true,
   };
 }
+
 
 export function unfavouriteSuccess(status) {
   return {

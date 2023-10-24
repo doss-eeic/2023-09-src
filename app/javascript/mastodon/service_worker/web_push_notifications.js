@@ -147,6 +147,7 @@ const actionFavourite = preferred_locale => ({
   title: formatMessage('status.favourite', preferred_locale),
 });
 
+
 const findBestClient = clients => {
   const focusedClient = clients.find(client => client.focused);
   const visibleClient = clients.find(client => client.visibilityState === 'visible');

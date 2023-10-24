@@ -26,6 +26,7 @@ const messages = defineMessages({
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be boosted' },
   favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
+  //ここにさらに追加することになるのではないか。
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark' },
   more: { id: 'status.more', defaultMessage: 'More' },
   mute: { id: 'status.mute', defaultMessage: 'Mute @{name}' },
@@ -94,6 +95,7 @@ class ActionBar extends PureComponent {
   handleFavouriteClick = () => {
     this.props.onFavourite(this.props.status);
   };
+
 
   handleBookmarkClick = (e) => {
     this.props.onBookmark(this.props.status, e);

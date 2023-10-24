@@ -237,11 +237,11 @@ class Status extends ImmutablePureComponent {
   handleToggleMediaVisibility = () => {
     this.setState({ showMedia: !this.state.showMedia });
   };
-
   handleFavouriteClick = (status) => {
     const { dispatch } = this.props;
     const { signedIn } = this.context.identity;
 
+    //ここの部分がすごく怪しい。
     if (signedIn) {
       if (status.get('favourited')) {
         dispatch(unfavourite(status));

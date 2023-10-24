@@ -132,6 +132,8 @@ class StatusActionBar extends ImmutablePureComponent {
       if (e.name !== 'AbortError') console.error(e);
     });
   };
+  //ここにも変更
+  //変更終了
 
   handleFavouriteClick = () => {
     const { signedIn } = this.context.identity;
