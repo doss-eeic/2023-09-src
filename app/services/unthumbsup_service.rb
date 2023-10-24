@@ -4,7 +4,7 @@ class UnthumbsupService < BaseService
   include Payloadable
 
   def call(account, status)
-    thumbsup = thumbsup.find_by!(account: account, status: status)
+    thumbsup = Thumbsup.find_by!(account: account, status: status)
     thumbsup.destroy!
     # create_notification(thumbsup) if !status.account.local? && status.account.activitypub?
     thumbsup
