@@ -9,6 +9,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
              :favourites_count, :edited_at
 
   attribute :favourited, if: :current_user?
+  attribute :thumbsuped, if: :current_user?
   attribute :reblogged, if: :current_user?
   attribute :muted, if: :current_user?
   attribute :bookmarked, if: :current_user?
@@ -94,6 +95,14 @@ class REST::StatusSerializer < ActiveModel::Serializer
       relationships.favourites_map[object.id] || false
     else
       current_user.account.favourited?(object)
+    end
+  end
+
+  def thumbsuped
+    if relationships
+      relationships.thumbsups_map[object.id] || false
+    else
+      current_user.account.thumbsuped?(object)
     end
   end
 

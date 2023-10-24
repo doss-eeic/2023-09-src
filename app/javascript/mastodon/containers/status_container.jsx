@@ -24,9 +24,11 @@ import {
 import {
   reblog,
   favourite,
+  thumbsup,
   bookmark,
   unreblog,
   unfavourite,
+  unthumbsup,
   unbookmark,
   pin,
   unpin,
@@ -116,6 +118,14 @@ const mapDispatchToProps = (dispatch, { intl, contextType }) => ({
       dispatch(unfavourite(status));
     } else {
       dispatch(favourite(status));
+    }
+  },
+
+  onThumbsup (status) {
+    if (status.get('thumbsuped')) {
+      dispatch(unthumbsup(status));
+    } else {
+      dispatch(thumbsup(status));
     }
   },
 

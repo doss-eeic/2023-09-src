@@ -16,6 +16,9 @@ namespace :api, format: false do
         resource :favourite, only: :create
         post :unfavourite, to: 'favourites#destroy'
 
+        resource :thumbsup, only: :create
+        post :unthumbsup, to: 'thumbsups#destroy'
+
         resource :bookmark, only: :create
         post :unbookmark, to: 'bookmarks#destroy'
 

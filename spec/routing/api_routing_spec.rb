@@ -73,6 +73,16 @@ describe 'API routes' do
         .to route_to('api/v1/statuses/favourites#destroy', status_id: '123')
     end
 
+    it 'routes thumbsup' do
+      expect(post('/api/v1/statuses/123/thumbsup'))
+        .to route_to('api/v1/statuses/thumbsups#create', status_id: '123')
+    end
+
+    it 'routes unthumbsup' do
+      expect(post('/api/v1/statuses/123/unthumbsup'))
+        .to route_to('api/v1/statuses/thumbsups#destroy', status_id: '123')
+    end
+
     it 'routes mute' do
       expect(post('/api/v1/statuses/123/mute'))
         .to route_to('api/v1/statuses/mutes#create', status_id: '123')
