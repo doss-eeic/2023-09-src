@@ -383,12 +383,7 @@ class StatusActionBar extends ImmutablePureComponent {
         </div>
         <div className='inside__status__action-bar__hidden'>
           <IconButton className='status__action-bar__button star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-          <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('thumbsuped')} title={intl.formatMessage(messages.favourite)} icon='thumbs-up' onClick={this.handleThumbsupClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-          {/*<IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='heart' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-          <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='face-smile' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-          <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='face-surprise' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-          <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='face-sad-tears' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-          <IconButton className='status__action-bar__button star-icon' disabled={!signedIn} active={status.get('favorited')} title={intl.formatMessage(messages.favourite)} icon='face-grin-squint-tears' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />*/}
+          <IconButton className='status__action-bar__button thumbsup-icon' disabled={!signedIn} active={status.get('thumbsuped')} title={intl.formatMessage(messages.thumbsup)} icon='thumbs-up' onClick={this.handleThumbsupClick} />
         </div>
 
         {filterButton}
