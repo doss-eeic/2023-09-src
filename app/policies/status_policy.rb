@@ -31,6 +31,10 @@ class StatusPolicy < ApplicationPolicy
     show? && !blocking_author?
   end
 
+  def thumbsdown?
+    show? && !blocking_author?
+  end
+
   def destroy?
     owned?
   end
