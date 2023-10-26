@@ -62,6 +62,7 @@ const mapDispatchToProps = dispatch => ({
     }
   },
 
+
   onToggleHidden (status) {
     if (status.get('hidden')) {
       dispatch(revealStatus(status.get('id')));

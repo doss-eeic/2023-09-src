@@ -19,6 +19,10 @@ export const THUMBSUP_REQUEST = 'THUMBSUP_REQUEST';
 export const THUMBSUP_SUCCESS = 'THUMBSUP_SUCCESS';
 export const THUMBSUP_FAIL    = 'THUMBSUP_FAIL';
 
+export const THUMBSDOWN_REQUEST = 'THUMBSDOWN_REQUEST';
+export const THUMBSDOWN_SUCCESS = 'THUMBSDOWN_SUCCESS';
+export const THUMBSDOWN_FAIL    = 'THUMBSDOWN_FAIL';
+
 export const UNREBLOG_REQUEST = 'UNREBLOG_REQUEST';
 export const UNREBLOG_SUCCESS = 'UNREBLOG_SUCCESS';
 export const UNREBLOG_FAIL    = 'UNREBLOG_FAIL';
@@ -30,6 +34,10 @@ export const UNFAVOURITE_FAIL    = 'UNFAVOURITE_FAIL';
 export const UNTHUMBSUP_REQUEST = 'UNTHUMBSUP_REQUEST';
 export const UNTHUMBSUP_SUCCESS = 'UNTHUMBSUP_SUCCESS';
 export const UNTHUMBSUP_FAIL    = 'UNTHUMBSUP_FAIL';
+
+export const UNTHUMBSDOWN_REQUEST = 'UNTHUMBSDOWN_REQUEST';
+export const UNTHUMBSDOWN_SUCCESS = 'UNTHUMBSDOWN_SUCCESS';
+export const UNTHUMBSDOWN_FAIL    = 'UNTHUMBSDOWN_FAIL';
 
 export const REBLOGS_FETCH_REQUEST = 'REBLOGS_FETCH_REQUEST';
 export const REBLOGS_FETCH_SUCCESS = 'REBLOGS_FETCH_SUCCESS';
@@ -189,6 +197,32 @@ export function unthumbsup(status) {
   };
 }
 
+export function thumbsdown(status) {
+  return function (dispatch, getState) {
+    dispatch(thumbsdownRequest(status));
+
+    api(getState).post(`/api/v1/statuses/${status.get('id')}/thumbsdown`).then(function (response) {
+      dispatch(importFetchedStatus(response.data));
+      dispatch(thumbsdownSuccess(status));
+    }).catch(function (error) {
+      dispatch(thumbsdownFail(status, error));
+    });
+  };
+}
+
+export function unthumbsdown(status) {
+  return (dispatch, getState) => {
+    dispatch(unthumbsdownRequest(status));
+
+    api(getState).post(`/api/v1/statuses/${status.get('id')}/unthumbsdown`).then(response => {
+      dispatch(importFetchedStatus(response.data));
+      dispatch(unthumbsdownSuccess(status));
+    }).catch(error => {
+      dispatch(unthumbsdownFail(status, error));
+    });
+  };
+}
+
 export function favouriteRequest(status) {
   return {
     type: FAVOURITE_REQUEST,
@@ -221,6 +255,7 @@ export function unfavouriteRequest(status) {
     skipLoading: true,
   };
 }
+
 
 export function unfavouriteSuccess(status) {
   return {
@@ -283,6 +318,56 @@ export function unthumbsupSuccess(status) {
 export function unthumbsupFail(status, error) {
   return {
     type: UNTHUMBSUP_FAIL,
+    status: status,
+    error: error,
+    skipLoading: true,
+  };
+}
+
+export function thumbsdownRequest(status) {
+  return {
+    type: THUMBSDOWN_REQUEST,
+    status: status,
+    skipLoading: true,
+  };
+}
+
+export function thumbsdownSuccess(status) {
+  return {
+    type: THUMBSDOWN_SUCCESS,
+    status: status,
+    skipLoading: true,
+  };
+}
+
+export function thumbsdownFail(status, error) {
+  return {
+    type: THUMBSDOWN_FAIL,
+    status: status,
+    error: error,
+    skipLoading: true,
+  };
+}
+
+export function unthumbsdownRequest(status) {
+  return {
+    type: UNTHUMBSDOWN_REQUEST,
+    status: status,
+    skipLoading: true,
+  };
+}
+
+export function unthumbsdownSuccess(status) {
+  return {
+    type: UNTHUMBSDOWN_SUCCESS,
+    status: status,
+    skipLoading: true,
+  };
+}
+
+export function unthumbsdownFail(status, error) {
+  return {
+    type: UNTHUMBSDOWN_FAIL,
     status: status,
     error: error,
     skipLoading: true,

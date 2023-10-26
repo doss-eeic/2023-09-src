@@ -52,6 +52,7 @@ class Notification extends ImmutablePureComponent {
     onMoveDown: PropTypes.func.isRequired,
     onMention: PropTypes.func.isRequired,
     onFavourite: PropTypes.func.isRequired,
+    onLike: PropTypes.func.isRequired,
     onReblog: PropTypes.func.isRequired,
     onToggleHidden: PropTypes.func.isRequired,
     status: ImmutablePropTypes.map,
@@ -100,6 +101,11 @@ class Notification extends ImmutablePureComponent {
     if (status) this.props.onFavourite(status);
   };
 
+  handleHotkeyLike = () => {
+    const { status } = this.props;
+    if (status) this.props.onLike(status);
+  };
+
   handleHotkeyBoost = e => {
     const { status } = this.props;
     if (status) this.props.onReblog(status, e);
@@ -114,6 +120,7 @@ class Notification extends ImmutablePureComponent {
     return {
       reply: this.handleMention,
       favourite: this.handleHotkeyFavourite,
+      like: this.handleHotkeyLike,
       boost: this.handleHotkeyBoost,
       mention: this.handleMention,
       open: this.handleOpen,

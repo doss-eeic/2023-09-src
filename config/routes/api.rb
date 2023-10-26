@@ -19,6 +19,9 @@ namespace :api, format: false do
         resource :thumbsup, only: :create
         post :unthumbsup, to: 'thumbsups#destroy'
 
+        resource :thumbsdown, only: :create
+        post :unthumbsdown, to: 'thumbsdowns#destroy'
+
         resource :bookmark, only: :create
         post :unbookmark, to: 'bookmarks#destroy'
 
