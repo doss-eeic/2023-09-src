@@ -571,6 +571,7 @@ class Status extends ImmutablePureComponent {
                 <DisplayName account={status.get('account')} />
               </a>
             </div>
+            {/* <div>hogehoge</div> */}
 
             <StatusContent
               status={status}
@@ -582,12 +583,13 @@ class Status extends ImmutablePureComponent {
               onCollapsedToggle={this.handleCollapsedToggle}
               {...statusContentProps}
             />
-
+            {/* <div>hogehoge</div> */}
             {media}
 
             {expanded && hashtagBar}
 
             <StatusActionBar scrollKey={scrollKey} status={status} account={account} onFilter={matchedFilters ? this.handleFilterClick : null} {...other} />
+            {/* <div>hogehoge</div> */}
           </div>
         </div>
       </HotKeys>
