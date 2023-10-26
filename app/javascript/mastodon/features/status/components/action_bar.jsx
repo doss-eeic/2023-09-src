@@ -26,7 +26,8 @@ const messages = defineMessages({
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Unboost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be boosted' },
   favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
-  //ここにさらに追加することになるのではないか。
+  thumbsup: { id: 'status.thumbsup', defaultMessage: 'Thumbsup' },
+  thumbsdown: { id: 'status.thumbsdown', defaultMessage: 'Thumbsdown' },
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark' },
   more: { id: 'status.more', defaultMessage: 'More' },
   mute: { id: 'status.mute', defaultMessage: 'Mute @{name}' },
@@ -66,6 +67,8 @@ class ActionBar extends PureComponent {
     onReply: PropTypes.func.isRequired,
     onReblog: PropTypes.func.isRequired,
     onFavourite: PropTypes.func.isRequired,
+    onThumbsup: PropTypes.func.isRequired,
+    onThumbsdown: PropTypes.func.isRequired,
     onBookmark: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
@@ -94,6 +97,26 @@ class ActionBar extends PureComponent {
 
   handleFavouriteClick = () => {
     this.props.onFavourite(this.props.status);
+  };
+
+  handleThumbsupClick = () => {
+    this.props.onThumbsup(this.props.status);
+  };
+
+  handleThumbsdownClick = () => {
+    this.props.onThumbsdown(this.props.status);
+  };
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isDivVisible: false
+    };
+  }
+
+  handleCaretdownClick = () => {
+    this.setState({ isDivVisible: !this.state.isDivVisible });
   };
 
 
@@ -294,12 +317,16 @@ class ActionBar extends PureComponent {
         <div className='inside-detailed-status__action-bar'>
           <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} /></div>
           <div className='detailed-status__button'><IconButton className={classNames({ reblogPrivate })} disabled={!publicStatus && !reblogPrivate} active={status.get('reblogged')} title={reblogTitle} icon='retweet' onClick={this.handleReblogClick} /></div>
-          <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
           <div className='detailed-status__button'><IconButton className='bookmark-icon' disabled={!signedIn} active={status.get('bookmarked')} title={intl.formatMessage(messages.bookmark)} icon='bookmark' onClick={this.handleBookmarkClick} /></div>
+          <div className='detailed-status__button'><IconButton className='caret-down-icon'   icon='caret-down' onClick={this.handleCaretdownClick} /></div>
         </div>
-        <div className='inside-detailed-status__action-bar'>
-          <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
-        </div>
+        {this.state.isDivVisible && (
+          <div className='inside-detailed-status__action-bar'>
+            <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
+            <div className='detailed-status__button'><IconButton className='thumbsup-icon'  active={status.get('thumbsuped')} title={intl.formatMessage(messages.thumbsup)} icon='thumbs-up' onClick={this.handleThumbsupClick} /></div>
+            <div className='detailed-status__button'><IconButton className='thumbsdown-icon'  active={status.get('thumbsdowned')} title={intl.formatMessage(messages.thumbsdown)} icon='thumbs-down' onClick={this.handleThumbsdownClick} /></div>
+          </div>
+        )}
         <div className='detailed-status__action-bar-dropdown'>
           <DropdownMenuContainer size={18} icon='ellipsis-h' status={status} items={menu} direction='left' title={intl.formatMessage(messages.more)} />
         </div>

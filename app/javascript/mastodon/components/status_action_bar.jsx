@@ -408,8 +408,8 @@ class StatusActionBar extends ImmutablePureComponent {
         {this.state.isDivVisible && (
           <div className='inside__status__action-bar__hidden'>
             <IconButton className='status__action-bar__button star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} counter={withCounters ? status.get('favourites_count') : undefined} />
-            <IconButton className='status__action-bar__button thumbsup-icon' disabled={!signedIn} active={status.get('thumbsuped')} title={intl.formatMessage(messages.thumbsup)} icon='thumbs-up' onClick={this.handleThumbsupClick} />
-            <IconButton className='status__action-bar__button thumbsdown-icon' disabled={!signedIn} active={status.get('thumbsdowned')} title={intl.formatMessage(messages.thumbsdown)} icon='thumbs-down' onClick={this.handleThumbsdownClick} />
+            <IconButton className='status__action-bar__button thumbsup-icon' active={status.get('thumbsuped')} title={intl.formatMessage(messages.thumbsup)} icon='thumbs-up' onClick={this.handleThumbsupClick} />
+            <IconButton className='status__action-bar__button thumbsdown-icon' active={status.get('thumbsdowned')} title={intl.formatMessage(messages.thumbsdown)} icon='thumbs-down' onClick={this.handleThumbsdownClick} />
           </div>
         )}
         {filterButton}

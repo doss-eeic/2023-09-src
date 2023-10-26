@@ -42,6 +42,10 @@ import {
   unreblog,
   pin,
   unpin,
+  thumbsup,
+  unthumbsup,
+  thumbsdown,
+  unthumbsdown,
 } from '../../actions/interactions';
 import { openModal } from '../../actions/modal';
 import { initMuteModal } from '../../actions/mutes';
@@ -253,6 +257,52 @@ class Status extends ImmutablePureComponent {
         modalType: 'INTERACTION',
         modalProps: {
           type: 'favourite',
+          accountId: status.getIn(['account', 'id']),
+          url: status.get('uri'),
+        },
+      }));
+    }
+  };
+
+  handleThumbsupClick = (status) => {
+    const { dispatch } = this.props;
+    const { signedIn } = this.context.identity;
+
+
+    if (signedIn) {
+      if (status.get('thumbsuped')) {
+        dispatch(unthumbsup(status));
+      } else {
+        dispatch(thumbsup(status));
+      }
+    } else {
+      dispatch(openModal({
+        modalType: 'INTERACTION',
+        modalProps: {
+          type: 'thumbsup',
+          accountId: status.getIn(['account', 'id']),
+          url: status.get('uri'),
+        },
+      }));
+    }
+  };
+
+  handleThumbsdownClick = (status) => {
+    const { dispatch } = this.props;
+    const { signedIn } = this.context.identity;
+
+
+    if (signedIn) {
+      if (status.get('thumbsdowned')) {
+        dispatch(unthumbsdown(status));
+      } else {
+        dispatch(thumbsdown(status));
+      }
+    } else {
+      dispatch(openModal({
+        modalType: 'INTERACTION',
+        modalProps: {
+          type: 'thumbsdown',
           accountId: status.getIn(['account', 'id']),
           url: status.get('uri'),
         },
@@ -710,6 +760,8 @@ class Status extends ImmutablePureComponent {
                   status={status}
                   onReply={this.handleReplyClick}
                   onFavourite={this.handleFavouriteClick}
+                  onThumbsup={this.handleThumbsupClick}
+                  onThumbsdown={this.handleThumbsdownClick}
                   onReblog={this.handleReblogClick}
                   onBookmark={this.handleBookmarkClick}
                   onDelete={this.handleDeleteClick}
