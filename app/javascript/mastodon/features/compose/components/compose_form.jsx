@@ -47,6 +47,11 @@ class ComposeForm extends ImmutablePureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     text: PropTypes.string.isRequired,
+
+    burriedlink: PropTypes.string,//追加
+    burryingtextStart: PropTypes.number,//追加
+    burryingtextEnd: PropTypes.number,//追加
+
     suggestions: ImmutablePropTypes.list,
     spoiler: PropTypes.bool,
     privacy: PropTypes.string,
@@ -104,7 +109,7 @@ class ComposeForm extends ImmutablePureComponent {
   };
 
   handleSubmit = (e) => {
-    if (this.props.text !== this.autosuggestTextarea.textarea.value) {
+    if (this.props.text !== this.autosuggestTextarea.textarea.value ) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
       // Update the state to match the current text
       this.props.onChange(this.autosuggestTextarea.textarea.value);
@@ -114,7 +119,21 @@ class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
+    const finaltext =
+    this.autosuggestTextarea.textarea.value.slice(0, this.autosuggestTextarea.state.burryingtextStart)
+    + '[' +  this.autosuggestTextarea.state.burryingtext + ']'
+    + '(' + this.autosuggestTextarea.state.burriedlink + ')'
+    + this.autosuggestTextarea.textarea.value.slice(this.autosuggestTextarea.state.burryingtextEnd);
+    //ここで色々textの内容をつなげてmarkdown形式にして送る
+
+    this.props.onChange(finaltext);
     this.props.onSubmit(this.context.router ? this.context.router.history : null);
+
+    this.autosuggestTextarea.setState({ burryingtext: "" });
+    this.autosuggestTextarea.setState({ burriedlink: "" });
+    this.autosuggestTextarea.setState({ burryingtextStart: 0});
+    this.autosuggestTextarea.setState({ burryingtextEnd: 0});
+    //ここでstateのリセット
 
     if (e) {
       e.preventDefault();
@@ -279,6 +298,7 @@ class ComposeForm extends ImmutablePureComponent {
             onPaste={onPaste}
             autoFocus={autoFocus}
             lang={this.props.lang}
+            //ここになにかしら入れることによって上に自分自身のステートを渡せる、、、？
           >
             <div className='compose-form__modifiers'>
               <UploadFormContainer />

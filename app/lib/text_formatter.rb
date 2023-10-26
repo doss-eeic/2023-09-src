@@ -42,6 +42,7 @@ class TextFormatter
         link_to_mention(entity)
       end
     end
+    html = html.gsub(/\[(.*?)\]\((.*?)\)/, '\2')
 
     html = simple_format(html, {}, sanitize: false).delete("\n") if multiline?
 
@@ -52,12 +53,11 @@ class TextFormatter
     include ERB::Util
 
     def shortened_link(url, text, rel_me: false)
-      # def shortened_link(url, rel_me: false)
       url = Addressable::URI.parse(url).to_s
       rel = rel_me ? (DEFAULT_REL + %w(me)) : DEFAULT_REL
 
       prefix = url.match(URL_PREFIX_REGEX).to_s
-      if text.zero?
+      if text == '0' # ここどうしよう、、、
         display_url = url[prefix.length, 30]
         suffix      = url[prefix.length + 30..]
         cutoff      = url[prefix.length..].length > 30
@@ -66,9 +66,6 @@ class TextFormatter
         suffix      = url[prefix.length + 30..]
         cutoff      = url[prefix.length].length > 30
       end
-      # display_url = url[prefix.length, 30]
-      # suffix      = url[prefix.length + 30..]
-      # cutoff      = url[prefix.length..].length > 30
 
       <<~HTML.squish.html_safe # rubocop:disable Rails/OutputSafety
         <a href="#{h(url)}" target="_blank" rel="#{rel.join(' ')}" translate="no"><span class="invisible">#{h(prefix)}</span><span class="#{cutoff ? 'ellipsis' : ''}">#{h(display_url)}</span><span class="invisible">#{h(suffix)}</span></a>
@@ -100,8 +97,14 @@ class TextFormatter
   end
 
   def link_to_url(entity)
-    TextFormatter.shortened_link(entity[:url], 'aiueo', rel_me: with_rel_me?)
-    # TextFormatter.shortened_link(entity[:url], rel_me: with_rel_me?)
+    pattern = /\[([^\]]+)\]\(([^)]+)\)/
+    matches = text.scan(pattern)
+    if matches.empty?
+      TextFormatter.shortened_link(entity[:url], '0', rel_me: with_rel_me?)
+    else
+      word = matches[0][0]
+      TextFormatter.shortened_link(entity[:url], word, rel_me: with_rel_me?)
+    end
   end
 
   def link_to_hashtag(entity)
