@@ -14,6 +14,7 @@ import DropdownMenuContainer from '../containers/dropdown_menu_container';
 import { me } from '../initial_state';
 
 import { IconButton } from './icon_button';
+//import status from './status';
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },

@@ -127,6 +127,9 @@ const mapDispatchToProps = (dispatch, { intl, contextType }) => ({
     if (status.get('thumbsuped')) {
       dispatch(unthumbsup(status));
     } else {
+      if(status.get('thumbsdowned')){
+        dispatch(unthumbsdown(status));
+      }
       dispatch(thumbsup(status));
     }
   },
@@ -135,6 +138,9 @@ const mapDispatchToProps = (dispatch, { intl, contextType }) => ({
     if (status.get('thumbsdowned')) {
       dispatch(unthumbsdown(status));
     } else {
+      if(status.get('thumbsuped')){
+        dispatch(unthumbsup(status));
+      }
       dispatch(thumbsdown(status));
     }
   },
