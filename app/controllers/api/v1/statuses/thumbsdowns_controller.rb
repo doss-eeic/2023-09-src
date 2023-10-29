@@ -7,7 +7,9 @@ class Api::V1::Statuses::ThumbsdownsController < Api::BaseController
   before_action :set_status, only: [:create]
 
   def create
+    set_status
     ThumbsdownService.new.call(current_account, @status)
+    set_status
     render json: @status, serializer: REST::StatusSerializer
   end
 
@@ -22,7 +24,9 @@ class Api::V1::Statuses::ThumbsdownsController < Api::BaseController
       authorize @status, :show?
     end
 
+    set_status
     relationships = StatusRelationshipsPresenter.new([@status], current_account.id, thumbsdowns_map: { @status.id => false })
+
     render json: @status, serializer: REST::StatusSerializer, relationships: relationships
   rescue Mastodon::NotPermittedError
     not_found

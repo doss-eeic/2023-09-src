@@ -10,18 +10,13 @@ class FavouriteService < BaseService
   # @return [Favourite]
   def call(account, status)
     authorize_with account, status, :favourite?
-
     favourite = Favourite.find_by(account: account, status: status)
-
     return favourite unless favourite.nil?
 
     favourite = Favourite.create!(account: account, status: status)
-
     Trends.statuses.register(status)
-
     create_notification(favourite)
     bump_potential_friendship(account, status)
-
     favourite
   end
 
