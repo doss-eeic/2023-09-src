@@ -57,7 +57,7 @@ export default class AutosuggestTextarea extends ImmutablePureComponent {
     lang: PropTypes.string,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
-    //setLink: PropTypes.func,
+    setLink: PropTypes.func,
   };
 
   static defaultProps = {
